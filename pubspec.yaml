@@ -25,6 +25,7 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   shared_preferences: ^2.5.3
   getwidget: ^6.0.0
+  flutter_blue_plus: ^1.35.5
 
 dev_dependencies:
   flutter_test:
