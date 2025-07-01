@@ -101,3 +101,5 @@ local.properties
 .fvm/*
 
 *.env
+android/app/.cxx
+pubspec.lock

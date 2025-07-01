@@ -4,10 +4,7 @@ import java.util.regex.Pattern
 def localProperties = loadPropertiesFile('local.properties')
 def keystoreProperties = loadPropertiesFile('key.properties')
 
-def flutterRoot = localProperties.getProperty('flutter.sdk')
-if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
-}
+
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
@@ -54,10 +51,15 @@ def getCurrentFlavor() {
         return ""
     }
 }
-
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+//plugins {
+//    id "com.android.application"
+//    id "kotlin-android"
+//    id "dev.flutter.flutter-gradle-plugin"
+//}
+ apply plugin: 'com.android.application'
+ apply plugin: 'kotlin-android'
+apply plugin: 'dev.flutter.flutter-gradle-plugin'
+// apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
 
@@ -68,17 +70,23 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.hellohasan.flutter_getx_template"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 33
-        compileSdk 33
+        compileSdk 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
-
+    namespace "com.hellohasan.flutter_getx_template"
     lintOptions {
         checkReleaseBuilds false
     }
-
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
     signingConfigs {
         release {
             keyAlias keystoreProperties['keyAlias']
@@ -112,5 +120,5 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
