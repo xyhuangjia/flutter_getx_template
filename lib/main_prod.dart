@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '/app/my_app.dart';
 import '/flavors/build_config.dart';
@@ -7,7 +8,7 @@ import '/flavors/environment.dart';
 
 void main() {
   EnvConfig prodConfig = EnvConfig(
-    appName: "Flutter GetX Template Prod",
+    appName: "俏郎中",
     baseUrl: "https://api.github.com",
     shouldCollectCrashLog: true,
   );

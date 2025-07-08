@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '/app/core/base/base_view.dart';
@@ -14,10 +15,11 @@ import '/app/modules/settings/views/settings_view.dart';
 // ignore: must_be_immutable
 class MainView extends BaseView<MainController> {
   @override
-  PreferredSizeWidget? appBar(BuildContext context) => null;
+  PreferredSizeWidget? appBar(BuildContext context) =>  null;
 
   @override
   Widget body(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark); // 1
     return Container(
       key: UniqueKey(),
       child: Obx(
