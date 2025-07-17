@@ -22,7 +22,7 @@ abstract class BaseView<Controller extends BaseController>
 
   Widget body(BuildContext context);
 
-  PreferredSizeWidget? appBar(BuildContext context);
+  PreferredSizeWidget? appBar(BuildContext context) => null; // 默认返回 null
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +46,10 @@ abstract class BaseView<Controller extends BaseController>
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
         //Status bar color for android
-        statusBarColor: statusBarColor(),
-        statusBarIconBrightness: Brightness.dark,
+        statusBarColor: AppColors.statusBarColor, // 状态栏颜色
+        statusBarIconBrightness: Brightness.dark, // 状态栏图标颜色
+        // systemNavigationBarColor: Colors.white, // 导航栏颜色
+        // systemNavigationBarIconBrightness: Brightness.dark, // 导航栏图标颜色
       ),
       child: Material(
         color: Colors.transparent,
@@ -86,10 +88,7 @@ abstract class BaseView<Controller extends BaseController>
 
   void showToast(String message) {
     Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        timeInSecForIosWeb: 1
-    );
+        msg: message, toastLength: Toast.LENGTH_SHORT, timeInSecForIosWeb: 1);
   }
 
   Color pageBackgroundColor() {
@@ -97,7 +96,7 @@ abstract class BaseView<Controller extends BaseController>
   }
 
   Color statusBarColor() {
-    return AppColors.pageBackground;
+    return AppColors.statusBarColor;
   }
 
   Widget? floatingActionButton() {
