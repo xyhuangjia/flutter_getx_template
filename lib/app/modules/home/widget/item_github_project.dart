@@ -15,9 +15,9 @@ class ItemGithubProject extends StatelessWidget with BaseWidgetMixin {
   final GithubProjectUiData dataModel;
 
   ItemGithubProject({
-    Key? key,
+    super.key,
     required this.dataModel,
-  }) : super(key: key);
+  });
 
   @override
   Widget body(BuildContext context) {

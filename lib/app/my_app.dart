@@ -10,7 +10,7 @@ import '/flavors/env_config.dart';
 import '../l10n/app_localizations.dart';
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -29,15 +29,7 @@ class _MyAppState extends State<MyApp> {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       defaultTransition: Transition.rightToLeft,
       supportedLocales: _getSupportedLocal(),
-      builder: (context, child) {
-        // 确保 Android 状态栏透明
-        SystemChrome.setSystemUIOverlayStyle(
-          const SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-          ),
-        );
-        return child!;
-      },
+      defaultTransition: Transition.rightToLeft,
       theme: ThemeData(
         primarySwatch: AppColors.colorPrimarySwatch,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -58,6 +50,7 @@ class _MyAppState extends State<MyApp> {
         ),
         fontFamily: 'Roboto',
       ),
+      // transition: Transition.rightToLeft, // 设置滑动动画
       debugShowCheckedModeBanner: false,
     );
   }
