@@ -13,9 +13,9 @@ typedef OnBottomNavItemSelected = Function(MenuCode menuCode);
 
 class BottomNavBar extends StatelessWidget with BaseWidgetMixin {
   BottomNavBar({
-    Key? key,
+    super.key,
     required this.onItemSelected,
-  }) : super(key: key);
+  });
 
   final OnBottomNavItemSelected onItemSelected;
   final navController = BottomNavController();

@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
       initialBinding: InitialBinding(),
       getPages: AppPages.routes,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
+      defaultTransition: Transition.rightToLeft,
       supportedLocales: _getSupportedLocal(),
       builder: (context, child) {
         // 确保 Android 状态栏透明

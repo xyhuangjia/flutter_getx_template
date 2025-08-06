@@ -1,5 +1,13 @@
 import 'package:get/get.dart';
 
+import '../modules/login/bindings/login_binding.dart';
+import '../modules/login/views/login_view.dart';
+import '../modules/login_onekey/bindings/login_onekey_binding.dart';
+import '../modules/login_onekey/views/login_onekey_view.dart';
+import '../modules/message/bindings/message_binding.dart';
+import '../modules/message/views/message_view.dart';
+import '../modules/mine/bindings/mine_binding.dart';
+import '../modules/mine/views/mine_view.dart';
 import '/app/modules/favorite/bindings/favorite_binding.dart';
 import '/app/modules/favorite/views/favorite_view.dart';
 import '/app/modules/home/bindings/home_binding.dart';
@@ -50,6 +58,26 @@ class AppPages {
       name: _Paths.PROJECT_DETAILS,
       page: () => ProjectDetailsView(),
       binding: ProjectDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOGIN,
+      page: () => const LoginView(),
+      binding: LoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.MINE,
+      page: () => MineView(),
+      binding: MineBinding(),
+    ),
+    GetPage(
+      name: _Paths.MESSAGE,
+      page: () => const MessageView(),
+      binding: MessageBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOGIN_ONEKEY,
+      page: () => const LoginOnekeyView(),
+      binding: LoginOnekeyBinding(),
     ),
   ];
 }

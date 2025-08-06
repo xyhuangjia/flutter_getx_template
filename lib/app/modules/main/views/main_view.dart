@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_getx_template/app/modules/mine/views/mine_view.dart';
 import 'package:get/get.dart';
 
 import '/app/core/base/base_view.dart';
@@ -13,22 +14,53 @@ import '/app/modules/other/views/other_view.dart';
 import '/app/modules/settings/views/settings_view.dart';
 
 // ignore: must_be_immutable
-class MainView extends BaseView<MainController> {
-  @override
-  PreferredSizeWidget? appBar(BuildContext context) =>  null;
+// class MainView extends BaseView<MainController> {
+//   @override
+//   PreferredSizeWidget? appBar(BuildContext context) =>  null;
+//
+//   @override
+//   Widget body(BuildContext context) {
+//     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark); // 1
+//     return Container(
+//       key: UniqueKey(),
+//       child: Obx(
+//         () => getPageOnSelectedMenu(controller.selectedMenuCode),
+//       ),
+//     );
+//   }
+//
+//   @override
+//   Widget? bottomNavigationBar() {
+//     return BottomNavBar(onItemSelected: controller.onMenuSelected);
+//   }
+//
+//   final HomeView homeView = HomeView();
+//   FavoriteView? favoriteView;
+//   SettingsView? settingsView;
+//   MineView? mineView;
+//
+//   Widget getPageOnSelectedMenu(MenuCode menuCode) {
+//     switch (menuCode) {
+//       case MenuCode.HOME:
+//         return homeView;
+//       case MenuCode.FAVORITE:
+//         favoriteView ??= FavoriteView();
+//         return favoriteView!;
+//       case MenuCode.SETTINGS:
+//         settingsView ??= SettingsView();
+//         return settingsView!;
+//       case MenuCode.MINE:
+//         mineView ??= MineView();
+//         return mineView!;
+//       default:
+//         return OtherView(
+//           viewParam: describeEnum(menuCode),
+//         );
+//     }
+//   }
+// }
+class MainView extends GetView<MainController> {
 
-  @override
-  Widget body(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark); // 1
-    return Container(
-      key: UniqueKey(),
-      child: Obx(
-        () => getPageOnSelectedMenu(controller.selectedMenuCode),
-      ),
-    );
-  }
-
-  @override
   Widget? bottomNavigationBar() {
     return BottomNavBar(onItemSelected: controller.onMenuSelected);
   }
@@ -36,7 +68,7 @@ class MainView extends BaseView<MainController> {
   final HomeView homeView = HomeView();
   FavoriteView? favoriteView;
   SettingsView? settingsView;
-
+  MineView? mineView;
   Widget getPageOnSelectedMenu(MenuCode menuCode) {
     switch (menuCode) {
       case MenuCode.HOME:
@@ -47,10 +79,26 @@ class MainView extends BaseView<MainController> {
       case MenuCode.SETTINGS:
         settingsView ??= SettingsView();
         return settingsView!;
+      case MenuCode.MINE:
+        mineView ??= MineView();
+        return mineView!;
       default:
         return OtherView(
           viewParam: describeEnum(menuCode),
         );
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        key: UniqueKey(),
+        child: Obx(
+              () => getPageOnSelectedMenu(controller.selectedMenuCode),
+        ),
+      ),
+      bottomNavigationBar: bottomNavigationBar(),
+    );
   }
 }

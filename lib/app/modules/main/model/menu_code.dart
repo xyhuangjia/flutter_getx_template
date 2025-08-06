@@ -1,7 +1,7 @@
 import 'package:flutter_getx_template/l10n/app_localizations.dart';
 import 'package:flutter_getx_template/app/modules/main/model/menu_item.dart';
 
-enum MenuCode { HOME, FAVORITE, SETTINGS }
+enum MenuCode { HOME, FAVORITE, SETTINGS,MINE }
 
 extension MenuCodeExtensions on MenuCode {
   BottomNavItem toBottomNavItem(AppLocalizations appLocalization) {
@@ -22,6 +22,11 @@ extension MenuCodeExtensions on MenuCode {
             navTitle: appLocalization.bottomNavSettings,
             iconSvgName: "ic_settings.svg",
             menuCode: MenuCode.SETTINGS);
+      case MenuCode.MINE:
+        return BottomNavItem(
+            navTitle: appLocalization.bottomNavSettings,
+            iconSvgName: "tab_mine_s.png",
+            menuCode: MenuCode.MINE);
     }
   }
 }

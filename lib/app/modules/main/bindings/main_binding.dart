@@ -1,3 +1,4 @@
+import 'package:flutter_getx_template/app/modules/mine/controllers/mine_controller.dart';
 import 'package:get/get.dart';
 
 import '/app/modules/favorite/controllers/favorite_controller.dart';
@@ -26,6 +27,9 @@ class MainBinding extends Bindings {
     );
     Get.lazyPut<SettingsController>(
       () => SettingsController(),
+    );
+    Get.lazyPut<MineController>(
+          () => MineController(),
     );
   }
 }

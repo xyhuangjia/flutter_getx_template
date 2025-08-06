@@ -28,4 +28,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsFontSize => 'Font Size';
+
+  @override
+  String get bottomNavMine => 'Mine';
 }

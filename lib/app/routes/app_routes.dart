@@ -10,6 +10,10 @@ abstract class Routes {
   static const SETTINGS = _Paths.SETTINGS;
   static const OTHER = _Paths.OTHER;
   static const PROJECT_DETAILS = _Paths.PROJECT_DETAILS;
+  static const LOGIN = _Paths.LOGIN;
+  static const MINE = _Paths.MINE;
+  static const MESSAGE = _Paths.MESSAGE;
+  static const LOGIN_ONEKEY = _Paths.LOGIN_ONEKEY;
 }
 
 abstract class _Paths {
@@ -19,4 +23,8 @@ abstract class _Paths {
   static const SETTINGS = '/settings';
   static const OTHER = '/other';
   static const PROJECT_DETAILS = '/project-details';
+  static const LOGIN = '/login';
+  static const MINE = '/mine';
+  static const MESSAGE = '/message';
+  static const LOGIN_ONEKEY = '/login-onekey';
 }
