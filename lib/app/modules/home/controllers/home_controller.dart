@@ -1,4 +1,5 @@
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '/app/core/base/base_controller.dart';
 import '/app/core/base/paging_controller.dart';
@@ -8,24 +9,25 @@ import '/app/data/repository/github_repository.dart';
 import '/app/modules/home/model/github_project_ui_data.dart';
 
 class HomeController extends BaseController {
-  final GithubRepository _repository =
-      Get.find(tag: (GithubRepository).toString());
+  HomeController(BuildContext context) {
+    _repository = Provider.of<GithubRepository>(context, listen: false);
+  }
 
-  final RxList<GithubProjectUiData> _githubProjectListController =
-      RxList.empty();
+  late final GithubRepository _repository;
 
-  List<GithubProjectUiData> get projectList =>
-      _githubProjectListController.toList();
+  List<GithubProjectUiData> _githubProjectListController = [];
+
+  List<GithubProjectUiData> get projectList => _githubProjectListController;
 
   final pagingController = PagingController<GithubProjectUiData>();
 
-  void getGithubGetxProjectList() {
+  void getGithubProjectList() {
     if (!pagingController.canLoadNextPage()) return;
 
     pagingController.isLoadingPage = true;
 
     var queryParam = GithubSearchQueryParam(
-      searchKeyWord: 'flutter getx template',
+      searchKeyWord: 'flutter template',
       pageNumber: pagingController.pageNumber,
     );
 
@@ -41,13 +43,13 @@ class HomeController extends BaseController {
 
   onRefreshPage() {
     pagingController.initRefresh();
-    getGithubGetxProjectList();
+    getGithubProjectList();
   }
 
   onLoadNextPage() {
     logger.i("On load next");
 
-    getGithubGetxProjectList();
+    getGithubProjectList();
   }
 
   void _handleProjectListResponseSuccess(GithubProjectSearchResponse response) {
@@ -72,7 +74,8 @@ class HomeController extends BaseController {
 
     var newList = [...pagingController.listItems];
 
-    _githubProjectListController(newList);
+    _githubProjectListController = newList;
+    notifyListeners();
   }
 
   bool _isLastPage(int newListItemCount, int totalCount) {

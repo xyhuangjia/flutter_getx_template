@@ -1,9 +1,12 @@
-import 'package:get/get.dart';
+import '/app/core/base/base_controller.dart';
 
-class BottomNavController extends GetxController {
-  final _selectedIndexController = 0.obs;
+class BottomNavController extends BaseController {
+  int _selectedIndex = 0;
 
-  updateSelectedIndex(int index) => _selectedIndexController(index);
+  int get selectedIndex => _selectedIndex;
 
-  int get selectedIndex => _selectedIndexController.value;
+  updateSelectedIndex(int index) {
+    _selectedIndex = index;
+    notifyListeners();
+  }
 }

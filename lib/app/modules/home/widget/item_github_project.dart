@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_getx_template/app/core/widget/ripple.dart';
-import 'package:get/get.dart';
 
 import '/app/core/base/base_widget_mixin.dart';
 import '/app/core/values/app_colors.dart';
@@ -9,7 +9,7 @@ import '/app/core/values/text_styles.dart';
 import '/app/core/widget/elevated_container.dart';
 import '/app/core/widget/icon_text_widgets.dart';
 import '/app/modules/home/model/github_project_ui_data.dart';
-import '/app/routes/app_pages.dart';
+import '/app/routes/app_router.dart';
 
 class ItemGithubProject extends StatelessWidget with BaseWidgetMixin {
   final GithubProjectUiData dataModel;
@@ -23,7 +23,7 @@ class ItemGithubProject extends StatelessWidget with BaseWidgetMixin {
   Widget body(BuildContext context) {
     return ElevatedContainer(
       child: Ripple(
-        onTap: _onTap,
+        onTap: () => _onTap(context),
         child: Padding(
           padding: const EdgeInsets.all(AppValues.padding),
           child: Row(
@@ -94,7 +94,10 @@ class ItemGithubProject extends StatelessWidget with BaseWidgetMixin {
     );
   }
 
-  void _onTap() {
-    Get.toNamed(Routes.PROJECT_DETAILS, arguments: dataModel);
+  void _onTap(BuildContext context) {
+    context.push(
+      Routes.PROJECT_DETAILS,
+      extra: dataModel,
+    );
   }
 }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
-
 import '../controllers/login_onekey_controller.dart';
 
-class LoginOnekeyView extends GetView<LoginOnekeyController> {
+class LoginOnekeyView extends StatelessWidget {
   const LoginOnekeyView({super.key});
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

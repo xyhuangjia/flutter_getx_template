@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_getx_template/l10n/app_localizations.dart';
-
+import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 import '/app/core/base/base_controller.dart';
@@ -12,37 +11,42 @@ import '/app/core/values/app_colors.dart';
 import '/app/core/widget/loading.dart';
 import '/flavors/build_config.dart';
 
-abstract class BaseView<Controller extends BaseController>
-    extends GetView<Controller> {
-  final GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
+abstract class BaseView<Controller extends BaseController> extends StatelessWidget {
+  const BaseView({super.key});
 
-  AppLocalizations get appLocalization => AppLocalizations.of(Get.context!)!;
+  GlobalKey<ScaffoldState> get globalKey => GlobalKey<ScaffoldState>();
 
-  final Logger logger = BuildConfig.instance.config.logger;
+  AppLocalizations? appLocalization(BuildContext context) => AppLocalizations.of(context);
 
-  Widget body(BuildContext context);
+  Logger get logger => BuildConfig.instance.config.logger;
 
-  PreferredSizeWidget? appBar(BuildContext context) => null; // 默认返回 null
+  Widget body(BuildContext context, Controller controller);
+
+  PreferredSizeWidget? appBar(BuildContext context, Controller controller) => null; // 默认返回 null
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Stack(
-        children: [
-          annotatedRegion(context),
-          Obx(() => controller.pageState == PageState.LOADING
-              ? _showLoading()
-              : Container()),
-          Obx(() => controller.errorMessage.isNotEmpty
-              ? showErrorSnackBar(controller.errorMessage)
-              : Container()),
-          Container(),
-        ],
-      ),
+    return Consumer<Controller>(
+      builder: (context, controller, child) {
+        return GestureDetector(
+          child: Stack(
+            children: [
+              annotatedRegion(context, controller),
+              controller.pageState == PageState.LOADING
+                  ? _showLoading()
+                  : Container(),
+              controller.errorMessage.isNotEmpty
+                  ? showErrorSnackBar(context, controller.errorMessage)
+                  : Container(),
+              Container(),
+            ],
+          ),
+        );
+      },
     );
   }
 
-  Widget annotatedRegion(BuildContext context) {
+  Widget annotatedRegion(BuildContext context, Controller controller) {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
         //Status bar color for android
@@ -53,43 +57,39 @@ abstract class BaseView<Controller extends BaseController>
       ),
       child: Material(
         color: Colors.transparent,
-        child: pageScaffold(context),
+        child: pageScaffold(context, controller),
       ),
     );
   }
 
-  Widget pageScaffold(BuildContext context) {
+  Widget pageScaffold(BuildContext context, Controller controller) {
     return Scaffold(
       //sets ios status bar color
       backgroundColor: pageBackgroundColor(),
       key: globalKey,
-      appBar: appBar(context),
+      appBar: appBar(context, controller),
       floatingActionButton: floatingActionButton(),
-      body: pageContent(context),
+      body: pageContent(context, controller),
       bottomNavigationBar: bottomNavigationBar(),
       drawer: drawer(),
     );
   }
 
-  Widget pageContent(BuildContext context) {
+  Widget pageContent(BuildContext context, Controller controller) {
     return SafeArea(
-      child: body(context),
+      child: body(context, controller),
     );
   }
 
-  Widget showErrorSnackBar(String message) {
+  Widget showErrorSnackBar(BuildContext context, String message) {
     final snackBar = SnackBar(content: Text(message));
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ScaffoldMessenger.of(Get.context!).showSnackBar(snackBar);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
 
     return Container();
   }
 
-  void showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message, toastLength: Toast.LENGTH_SHORT, timeInSecForIosWeb: 1);
-  }
 
   Color pageBackgroundColor() {
     return AppColors.pageBackground;

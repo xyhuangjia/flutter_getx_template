@@ -7,15 +7,15 @@ import '../controllers/other_controller.dart';
 class OtherView extends BaseView<OtherController> {
   final String viewParam;
 
-  OtherView({this.viewParam = ""});
+  const OtherView({super.key, this.viewParam = ""});
 
   @override
-  PreferredSizeWidget? appBar(BuildContext context) {
+  PreferredSizeWidget? appBar(BuildContext context, OtherController controller) {
     return CustomAppBar(appBarTitleText: viewParam);
   }
 
   @override
-  Widget body(BuildContext context) {
+  Widget body(BuildContext context, OtherController controller) {
     return const Center(
       child: Text(
         'OtherView is working',

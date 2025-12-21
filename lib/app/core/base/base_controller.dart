@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 
 import '../../../l10n/app_localizations.dart';
@@ -14,50 +15,69 @@ import '/app/network/exceptions/service_unavailable_exception.dart';
 import '/app/network/exceptions/unauthorize_exception.dart';
 import '/flavors/build_config.dart';
 
-abstract class BaseController extends GetxController {
+abstract class BaseController extends ChangeNotifier {
   final Logger logger = BuildConfig.instance.config.logger;
 
-  AppLocalizations get appLocalization => AppLocalizations.of(Get.context!)!;
+  AppLocalizations? getAppLocalization(BuildContext context) => AppLocalizations.of(context);
 
-  final logoutController = false.obs;
+  bool _logoutController = false;
+  bool get logoutController => _logoutController;
+  set logoutController(bool value) {
+    _logoutController = value;
+    notifyListeners();
+  }
 
   //Reload the page
-  final _refreshController = false.obs;
+  bool _refreshController = false;
+  bool get refreshController => _refreshController;
 
-  refreshPage(bool refresh) => _refreshController(refresh);
+  refreshPage(bool refresh) {
+    _refreshController = refresh;
+    notifyListeners();
+  }
 
   //Controls page state
-  final _pageSateController = PageState.DEFAULT.obs;
+  PageState _pageSateController = PageState.DEFAULT;
 
-  PageState get pageState => _pageSateController.value;
+  PageState get pageState => _pageSateController;
 
-  updatePageState(PageState state) => _pageSateController(state);
+  updatePageState(PageState state) {
+    _pageSateController = state;
+    notifyListeners();
+  }
 
-  resetPageState() => _pageSateController(PageState.DEFAULT);
+  resetPageState() {
+    _pageSateController = PageState.DEFAULT;
+    notifyListeners();
+  }
 
   showLoading() => updatePageState(PageState.LOADING);
 
   hideLoading() => resetPageState();
 
-  final _messageController = ''.obs;
+  String _messageController = '';
+  String get message => _messageController;
 
-  String get message => _messageController.value;
-
-  showMessage(String msg) => _messageController(msg);
-
-  final _errorMessageController = ''.obs;
-
-  String get errorMessage => _errorMessageController.value;
-
-  showErrorMessage(String msg) {
-    _errorMessageController(msg);
+  showMessage(String msg) {
+    _messageController = msg;
+    notifyListeners();
   }
 
-  final _successMessageController = ''.obs;
+  String _errorMessageController = '';
+  String get errorMessage => _errorMessageController;
 
-  String get successMessage => _messageController.value;
+  showErrorMessage(String msg) {
+    _errorMessageController = msg;
+    notifyListeners();
+  }
 
-  showSuccessMessage(String msg) => _successMessageController(msg);
+  String _successMessageController = '';
+  String get successMessage => _successMessageController;
+
+  showSuccessMessage(String msg) {
+    _successMessageController = msg;
+    notifyListeners();
+  }
 
   // ignore: long-parameter-list
   dynamic callDataService<T>(
@@ -112,11 +132,13 @@ abstract class BaseController extends GetxController {
     onComplete == null ? hideLoading() : onComplete();
   }
 
+  void showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message, toastLength: Toast.LENGTH_SHORT, timeInSecForIosWeb: 1);
+  }
+
   @override
-  void onClose() {
-    _messageController.close();
-    _refreshController.close();
-    _pageSateController.close();
-    super.onClose();
+  void dispose() {
+    super.dispose();
   }
 }

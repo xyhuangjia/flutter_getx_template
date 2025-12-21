@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 import '/app/core/base/base_view.dart';
 import '/app/core/values/app_colors.dart';
@@ -10,8 +10,10 @@ import '/app/core/widget/icon_text_widgets.dart';
 import '/app/modules/project_details/controllers/project_details_controller.dart';
 
 class ProjectDetailsView extends BaseView<ProjectDetailsController> {
+  const ProjectDetailsView({super.key});
+
   @override
-  PreferredSizeWidget? appBar(BuildContext context) {
+  PreferredSizeWidget? appBar(BuildContext context, ProjectDetailsController controller) {
     return CustomAppBar(
       appBarTitleText: 'Repository details',
       isBackButtonEnabled: true,
@@ -19,15 +21,17 @@ class ProjectDetailsView extends BaseView<ProjectDetailsController> {
   }
 
   @override
-  Widget body(BuildContext context) {
+  Widget body(BuildContext context, ProjectDetailsController controller) {
     return Scaffold(
       body: Center(
-        child: Obx(() => _getView()),
+        child: Consumer<ProjectDetailsController>(
+          builder: (context, controller, child) => _getView(controller),
+        ),
       ),
     );
   }
 
-  Widget _getView() {
+  Widget _getView(ProjectDetailsController controller) {
     return controller.projectUiData.repositoryName.isEmpty
         ? Container()
         : Container(
@@ -41,17 +45,17 @@ class ProjectDetailsView extends BaseView<ProjectDetailsController> {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
-                _getAuthor(),
+                _getAuthor(controller),
                 const SizedBox(height: AppValues.margin_4),
-                _getForkStarWatcherView(),
+                _getForkStarWatcherView(controller),
                 const SizedBox(height: AppValues.margin_30),
-                _getDescription()
+                _getDescription(controller)
               ],
             ),
           );
   }
 
-  Widget _getAuthor() {
+  Widget _getAuthor(ProjectDetailsController controller) {
     return Row(
       children: [
         CircleAvatar(
@@ -69,7 +73,7 @@ class ProjectDetailsView extends BaseView<ProjectDetailsController> {
     );
   }
 
-  Widget _getForkStarWatcherView() {
+  Widget _getForkStarWatcherView(ProjectDetailsController controller) {
     return Container(
       margin: const EdgeInsets.only(left: AppValues.margin_40),
       child: Row(
@@ -98,7 +102,7 @@ class ProjectDetailsView extends BaseView<ProjectDetailsController> {
     );
   }
 
-  Widget _getDescription() {
+  Widget _getDescription(ProjectDetailsController controller) {
     return Expanded(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,

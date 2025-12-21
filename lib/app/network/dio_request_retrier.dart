@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:get/get.dart' as getx;
 
 import '/app/data/local/preference/preference_manager.dart';
 import '/app/network/dio_provider.dart';
@@ -7,11 +6,12 @@ import '/app/network/dio_provider.dart';
 class DioRequestRetrier {
   final dioClient = DioProvider.tokenClient;
   final RequestOptions requestOptions;
+  final PreferenceManager _preferenceManager;
 
-  final PreferenceManager _preferenceManager =
-      getx.Get.find(tag: (PreferenceManager).toString());
-
-  DioRequestRetrier({required this.requestOptions});
+  DioRequestRetrier({
+    required this.requestOptions,
+    required PreferenceManager preferenceManager,
+  }) : _preferenceManager = preferenceManager;
 
   Future<Response<T>> retry<T>() async {
     var header = await getCustomHeaders();

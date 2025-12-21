@@ -1,16 +1,16 @@
-import 'package:get/get.dart';
-
 import '/app/core/base/base_controller.dart';
 import '/app/modules/main/model/menu_code.dart';
 
 class MainController extends BaseController {
-  final _selectedMenuCodeController = MenuCode.HOME.obs;
+  MenuCode _selectedMenuCode = MenuCode.HOME;
 
-  MenuCode get selectedMenuCode => _selectedMenuCodeController.value;
+  MenuCode get selectedMenuCode => _selectedMenuCode;
 
-  final lifeCardUpdateController = false.obs;
+  bool _lifeCardUpdateController = false;
+  bool get lifeCardUpdateController => _lifeCardUpdateController;
 
   onMenuSelected(MenuCode menuCode) async {
-    _selectedMenuCodeController(menuCode);
+    _selectedMenuCode = menuCode;
+    notifyListeners();
   }
 }

@@ -1,9 +1,11 @@
-import 'package:get/get.dart';
-
 import '/app/core/base/base_controller.dart';
 
 class FavoriteController extends BaseController {
-  final count = 0.obs;
+  int _count = 0;
+  int get count => _count;
 
-  void increment() => count.value++;
+  void increment() {
+    _count++;
+    notifyListeners();
+  }
 }

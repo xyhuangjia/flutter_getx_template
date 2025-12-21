@@ -6,15 +6,17 @@ import '/app/core/widget/custom_app_bar.dart';
 import '/app/modules/favorite/controllers/favorite_controller.dart';
 
 class FavoriteView extends BaseView<FavoriteController> {
+  const FavoriteView({super.key});
+
   @override
-  PreferredSizeWidget? appBar(BuildContext context) {
+  PreferredSizeWidget? appBar(BuildContext context, FavoriteController controller) {
     return CustomAppBar(
       appBarTitleText: 'Favorite',
     );
   }
 
   @override
-  Widget body(BuildContext context) {
+  Widget body(BuildContext context, FavoriteController controller) {
     return const Center(
       child: Text(
         'FavoriteView is working',

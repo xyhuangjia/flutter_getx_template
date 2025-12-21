@@ -1,23 +1,15 @@
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
-class LoginController extends GetxController {
+import '/app/core/base/base_controller.dart';
+
+class LoginController extends BaseController {
   //TODO: Implement LoginController
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  int _count = 0;
+  int get count => _count;
 
-  @override
-  void onReady() {
-    super.onReady();
+  void increment() {
+    _count++;
+    notifyListeners();
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

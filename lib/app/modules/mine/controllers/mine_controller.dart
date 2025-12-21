@@ -1,8 +1,11 @@
 import 'package:flutter_getx_template/app/core/base/base_controller.dart';
-import 'package:get/get.dart';
 
 class MineController extends BaseController {
-  final count = 0.obs;
+  int _count = 0;
+  int get count => _count;
 
-  void increment() => count.value++;
+  void increment() {
+    _count++;
+    notifyListeners();
+  }
 }

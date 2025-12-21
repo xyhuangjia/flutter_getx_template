@@ -1,10 +1,10 @@
-# Flutter GetX Template (GetX, Dio, MVVM)
+# Flutter Template (Provider, GoRouter, Dio, MVVM)
 
-This Flutter Template using [GetX](https://pub.dev/packages/get) package for State management, routing and Dependency Injection (bindings). We are using [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) (Model View ViewModel) architectural pattern here. For network call we are using [Dio](https://pub.dev/packages/dio) package. We followed the recommended folder structure of GetX and used [Get CLI](https://pub.dev/packages/get_cli) command line tool for creating the folder structure.
+This Flutter Template uses [Provider](https://pub.dev/packages/provider) package for State management, [GoRouter](https://pub.dev/packages/go_router) for routing and navigation, and [Dio](https://pub.dev/packages/dio) package for network calls. We are using [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) (Model View ViewModel) architectural pattern here. This template follows best practices and uses popular, widely-adopted packages in the Flutter community.
 
 # Architecture of this project: MVVM
 
-MVVM (Model View ViewModel) is one of the most popular architectural pattern for Android App development. Basically
+MVVM (Model View ViewModel) is one of the most popular architectural patterns for mobile app development. Basically
 this pattern separates User interface from business-logic and data-logic. So that it's divided into three layers: Model layer, 
 View layer and View model layer. Let's explore it more deeply.
 
@@ -19,6 +19,15 @@ to the users. Even it controls the user input. When it needs any data it command
 for data and observe the response. Till then it may display a loader to the user.
 
 <b>Model:</b> Model is basically backend logic. It controls the data source.
+
+# Key Features
+
+- **State Management**: Provider - The most popular and widely-used state management solution
+- **Routing**: GoRouter - Declarative routing with type-safe navigation
+- **Network**: Dio - Powerful HTTP client for making API calls
+- **Architecture**: MVVM pattern for clean code separation
+- **Dependency Injection**: Provider-based dependency injection
+- **Localization**: Flutter's built-in localization support
 
 # To configure and run this project [check here](readme_configuration_guideline.md) 
 You will find at above link step by step instructions with screenshots.
@@ -37,19 +46,15 @@ Prod: `flutter run --flavor prod lib/main_prod.dart`
 
 `flutter pub run change_app_package_name:main your_package_name`
 
-# How was this project developed?
-- Run [get cli](https://pub.dev/packages/get_cli) command to create project in the required directory: `get create project`
-- Create `main_view` by running this command: `get create page:main` and so on...
-
 # 上述文档中文翻译
 
-# Flutter GetX 模板（GetX、Dio、MVVM）
+# Flutter 模板（Provider、GoRouter、Dio、MVVM）
 
-本 Flutter 模板使用 [GetX](https://pub.dev/packages/get) 包进行状态管理、路由和依赖注入（bindings）。我们在此采用了 [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)（模型-视图-视图模型）架构模式。网络请求使用 [Dio](https://pub.dev/packages/dio) 包。我们遵循了 GetX 推荐的文件夹结构，并使用 [Get CLI](https://pub.dev/packages/get_cli) 命令行工具创建了项目结构。
+本 Flutter 模板使用 [Provider](https://pub.dev/packages/provider) 包进行状态管理，使用 [GoRouter](https://pub.dev/packages/go_router) 进行路由和导航，使用 [Dio](https://pub.dev/packages/dio) 包进行网络请求。我们在此采用了 [MVVM](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)（模型-视图-视图模型）架构模式。本模板遵循最佳实践，使用 Flutter 社区中流行且广泛采用的包。
 
 # 本项目架构：MVVM
 
-MVVM（模型-视图-视图模型）是 Android 应用开发中最流行的架构模式之一。该模式将用户界面与业务逻辑和数据逻辑分离，分为三层：模型层、视图层和视图模型层。让我们更深入地了解一下。
+MVVM（模型-视图-视图模型）是移动应用开发中最流行的架构模式之一。该模式将用户界面与业务逻辑和数据逻辑分离，分为三层：模型层、视图层和视图模型层。让我们更深入地了解一下。
 
 ![mvvm](https://user-images.githubusercontent.com/3769029/137336079-1f3384d0-b9d6-4462-a2c4-4a3d2cc77e8a.png)
 
@@ -58,6 +63,15 @@ MVVM（模型-视图-视图模型）是 Android 应用开发中最流行的架�
 <b>视图（View）：</b> 视图是各种小部件（如 Text、Image、Dropdown 等）的集合，展示给用户。它还负责用户输入的控制。当需要数据时，会向视图模型（本项目中即 controller）请求数据并监听响应。在此期间可以向用户展示加载动画。
 
 <b>模型（Model）：</b> 模型主要是后端逻辑，负责数据源的管理。
+
+# 主要特性
+
+- **状态管理**: Provider - 最流行且广泛使用的状态管理解决方案
+- **路由**: GoRouter - 声明式路由，支持类型安全的导航
+- **网络**: Dio - 强大的 HTTP 客户端，用于 API 调用
+- **架构**: MVVM 模式，实现清晰的代码分离
+- **依赖注入**: 基于 Provider 的依赖注入
+- **本地化**: Flutter 内置的本地化支持
 
 # 如何配置和运行本项目 [点击这里](readme_configuration_guideline.md)
 你可以在上述链接中找到带有截图的逐步操作说明。
@@ -75,7 +89,3 @@ MVVM（模型-视图-视图模型）是 Android 应用开发中最流行的架�
 4. 通过[运行此命令](https://pub.dev/packages/change_app_package_name)更新应用包名：
 
 `flutter pub run change_app_package_name:main your_package_name`
-
-# 本项目是如何开发的？
-- 运行 [get cli](https://pub.dev/packages/get_cli) 命令在指定目录创建项目：`get create project`
-- 通过命令创建 `main_view`：`get create page:main`，以此类推...

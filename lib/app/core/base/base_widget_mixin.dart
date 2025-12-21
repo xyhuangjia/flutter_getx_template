@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_getx_template/l10n/app_localizations.dart';
-import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 import '/flavors/build_config.dart';
 
 mixin BaseWidgetMixin on StatelessWidget {
-  AppLocalizations get appLocalization => AppLocalizations.of(Get.context!)!;
-  final Logger logger = BuildConfig.instance.config.logger;
+  static AppLocalizations? appLocalization(BuildContext context) => AppLocalizations.of(context);
+  Logger get logger => BuildConfig.instance.config.logger;
 
   @override
   Widget build(BuildContext context) {
